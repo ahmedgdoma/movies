@@ -1,0 +1,40 @@
+version: "3.2"
+
+services:
+  laravel:
+    build:
+        context: .
+        dockerfile: Dockerfile
+    ports:
+      - 8881:8000
+    volumes:
+      - ./:/var/www/html
+    command: [ "php", "artisan","serve", "--host=0.0.0.0","--port=8000", "--no-ansi" ]
+
+  mysql:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_DATABASE: movies
+      MYSQL_ROOT_PASSWORD: ahmed
+    volumes:
+      - sqlvolume:/var/lib/mysql
+  phpmyadmin:
+      image: phpmyadmin/phpmyadmin
+      ports:
+        - 8882:80
+      restart: always
+      links:
+        - mysql
+      depends_on:
+        - mysql
+      environment:
+          PMA_HOST: mysql
+          PMA_ARBITRARY: 1
+      volumes:
+        - /sessions
+
+
+volumes:
+  sqlvolume:

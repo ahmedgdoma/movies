@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -22,6 +23,12 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
+        \Illuminate\Support\Facades\DB::table('users')->insert([
+            'name'=> 'admin',
+            'email'=> 'admin@movies.dev',
+            'email_verified_at'=> \Carbon\Carbon::now(),
+            'password'=> Hash::make('dev123456'),
+        ]);
     }
 
     /**

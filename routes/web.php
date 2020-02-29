@@ -11,4 +11,9 @@
 |
 */
 
-Route::get('/', 'ConfigrationsController@queueset');
+Route::get('/', 'ConfigurationsController@edit')->name('edit-config')->middleware('auth');
+Route::patch('/update-config', 'ConfigurationsController@update')->name('update-config')->middleware('auth');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

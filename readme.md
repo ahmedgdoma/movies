@@ -1,72 +1,108 @@
-<p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
+# Movies API
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+This project was generated with [Laravel](https://laravel.com/) version 5.8.*
 
-## About Laravel
+## How to Setup
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+To get this system working you have to have the following prerequisites installed:
+[docker](https://www.docker.com/),
+[docker compose](https://docs.docker.com/compose/).
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+clone the project
+then run
+`cd path/to/project && docker-compose -d
+`
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Check phpMyAdmin [click here](http://localhost:8883),
+username: `root`, password: `ahmed`
+Our Working Database is `movies`
 
-## Learning Laravel
+Then open the project [click here](http://0.0.0.0:8881),
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+login with email: `admin@movies.dev`,and password: `dev123456`
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+after login you see the token created for API you can change to token by clicking update token
 
-## Laravel Sponsors
+and you can change configuration by button Update Configurations
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+You need to Add [movies Api](https://themoviedb.org/) in `.env` file field `MOVIES_API_KEY`
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- [UserInsights](https://userinsights.com)
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-- [Invoice Ninja](https://www.invoiceninja.com)
-- [iMi digital](https://www.imi-digital.de/)
-- [Earthlink](https://www.earthlink.ro/)
-- [Steadfast Collective](https://steadfastcollective.com/)
-- [We Are The Robots Inc.](https://watr.mx/)
-- [Understand.io](https://www.understand.io/)
-- [Abdel Elrafa](https://abdelelrafa.com)
-- [Hyper Host](https://hyper.host)
 
-## Contributing
+you can also login in API `POST`  `http://localhost:8881/api-login`
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+ Headers: `Content-Type: application/json`
+ 
+ Body: `{"email":"admin@movies.dev", "password": "dev123456"}`
+ 
+ and it retrieves API Token
+ 
+ API Return User Data `GET`  `http://localhost:8881/api/user`
+ 
+ Header 1: `Content-Type: application/json`
+ 
+Header 2: `Accept: application/json`
+ 
+Header 3: `Authorization: Bearer yourToken`
 
-## Security Vulnerabilities
+to view genres returned from API
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+ API  `GET`  `http://localhost:8881/api/get-genres`
+ 
+ Header 1: `Content-Type: application/json`
+ 
+Header 2: `Accept: application/json`
+ 
+Header 3: `Authorization: Bearer yourToken`
 
-## License
+to view Top Rated Movies returned from API
 
-The Laravel framework is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+ API  `GET`  `http://localhost:8881/api/get-top-rated-movies`
+ 
+ Header 1: `Content-Type: application/json`
+ 
+Header 2: `Accept: application/json`
+ 
+Header 3: `Authorization: Bearer yourToken`
+
+to view Recent Movies returned from API
+
+ API  `GET`  `http://localhost:8881/api/get-recent-movies`
+ 
+ Header 1: `Content-Type: application/json`
+ 
+Header 2: `Accept: application/json`
+ 
+Header 3: `Authorization: Bearer yourToken`
+
+You can add filters and sort for Last two APIs
+
+######filters:
+title -> subString from title (type = string)
+
+id -> accurate movie by id (type = int)
+
+rate -> which have rate greater than (type = int)
+
+popularity -> which have popularity greater than (type = int)
+
+category_id -> filter by genre id  (type = int)
+
+######sorts:
+
+you can sort by any data retrieved ascending or descending
+
+EXAMPLE: `title|asc`, `rate|desc` 
+or mix sorts like `rate|asc&popularity|desc&title|desc`
+
+####Testing
+
+To run testing please run
+
+ `docker container exec -it movies_laravel_1 /bin/bash`
+ then in the inner terminal run
+ `./vendor/bin/phpunit`
+
+
+
+
+

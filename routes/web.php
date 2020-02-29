@@ -11,9 +11,19 @@
 |
 */
 
-Route::get('/', 'ConfigurationsController@edit')->name('edit-config')->middleware('auth');
+Route::get('/edit-config', 'ConfigurationsController@edit')->name('edit-config')->middleware('auth');
 Route::patch('/update-config', 'ConfigurationsController@update')->name('update-config')->middleware('auth');
+Route::get('/update-token', 'HomeController@updateToken')->name('updateToken')->middleware('auth');
 
+
+
+
+Route::post('/api-login', 'ApiAuthController@ApiLogin')->name('ApiLogin');
 Auth::routes();
 
+
+
+
+Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
+

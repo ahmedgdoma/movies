@@ -14,7 +14,12 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    You are logged in! your token is <strong class="text-success">{{$api_token}}</strong>
+                    <div class="form-row">
+                        <div class="form-check"><a href="{{route('updateToken')}}" class="btn btn-success">Update Token</a></div>
+                        <div class="form-check"><a href="{{route('edit-config')}}" class="btn btn-primary">Update Configurations</a></div>
+
+                    </div>
                 </div>
             </div>
         </div>

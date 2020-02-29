@@ -30,7 +30,7 @@ class CreateUsersTable extends Migration
             'email'=> 'admin@movies.dev',
             'email_verified_at'=> \Carbon\Carbon::now(),
             'password'=> Hash::make('dev123456'),
-            'api_token'=> hash('sha256', Str::random(60)),
+            'api_token'=> Str::random(60),
         ]);
     }
 

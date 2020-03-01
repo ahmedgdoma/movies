@@ -16,3 +16,7 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::get('/get-genres', 'ApiController@GetGenres')->name('GetGenres');
+Route::get('/get-top-rated-movies', 'ApiController@GetTopRatedMovies')->name('GetTopRatedMovies');
+Route::get('/get-recent-movies', 'ApiController@GetRecentMovies')->name('GetRecentMovies');
+

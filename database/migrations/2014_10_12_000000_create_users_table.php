@@ -1,8 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Str;
 
 class CreateUsersTable extends Migration
 {
@@ -19,9 +21,17 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('api_token', 80)->unique()->nullable()->default(null);
             $table->rememberToken();
             $table->timestamps();
         });
+        \Illuminate\Support\Facades\DB::table('users')->insert([
+            'name'=> 'admin',
+            'email'=> 'admin@movies.dev',
+            'email_verified_at'=> \Carbon\Carbon::now(),
+            'password'=> Hash::make('dev123456'),
+            'api_token'=> Str::random(60),
+        ]);
     }
 
     /**

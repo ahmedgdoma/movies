@@ -1,29 +1,44 @@
 version: "3.2"
 
 services:
-  laravel:
-    build:
-        context: .
-        dockerfile: Dockerfile
-    ports:
-      - 8881:8000
-    volumes:
-      - ./:/var/www/html
-    command: [ "php", "artisan","serve", "--host=0.0.0.0","--port=8000", "--no-ansi" ]
-
   mysql:
     image: mysql
     command: --default-authentication-plugin=mysql_native_password
-    restart: always
+    restart: on-failure
     environment:
       MYSQL_DATABASE: movies
       MYSQL_ROOT_PASSWORD: ahmed
     volumes:
       - sqlvolume:/var/lib/mysql
+
+
+  laravel:
+    build:
+        context: .
+        dockerfile: Dockerfile
+    depends_on:
+      - mysql
+    links:
+      - mysql
+    ports:
+      - 8881:8000
+    restart: always
+    volumes:
+      - ./:/var/www/html
+
+    command: bash -c "composer install
+      && php artisan migrate
+      && cp ./movies-cron /etc/cron.d/movies-cron
+      && chmod 0644 /etc/cron.d/movies-cron
+      && crontab /etc/cron.d/movies-cron && cron
+      && php artisan serve --host=0.0.0.0 --port=8000 --no-ansi"
+
+
+
   phpmyadmin:
       image: phpmyadmin/phpmyadmin
       ports:
-        - 8882:80
+        - 8883:80
       restart: always
       links:
         - mysql

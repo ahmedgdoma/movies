@@ -28,9 +28,9 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
 
-            $schedule->job(new listMovies())->when(function (){
+            $schedule->job(new listMovies())->everyMinute()->when(function (){
                 return $this->queue_run_validation();
-            })->withoutOverlapping();
+            });
 
     }
 

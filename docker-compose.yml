@@ -1,6 +1,17 @@
 version: "3.2"
 
 services:
+  mysql:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: on-failure
+    environment:
+      MYSQL_DATABASE: movies
+      MYSQL_ROOT_PASSWORD: ahmed
+    volumes:
+      - sqlvolume:/var/lib/mysql
+
+
   laravel:
     build:
         context: .
@@ -11,24 +22,18 @@ services:
       - mysql
     ports:
       - 8881:8000
-
+    restart: always
     volumes:
       - ./:/var/www/html
 
     command: bash -c "composer install
       && php artisan migrate
-      && php artisan serve --host=0.0.0.0 --port=8000 --no-ansi
-      && crontab /etc/cron.d/hello-cron"
+      && cp ./movies-cron /etc/cron.d/movies-cron
+      && chmod 0644 /etc/cron.d/movies-cron
+      && crontab /etc/cron.d/movies-cron && cron
+      && php artisan serve --host=0.0.0.0 --port=8000 --no-ansi"
 
-  mysql:
-    image: mysql
-    command: --default-authentication-plugin=mysql_native_password
-    restart: always
-    environment:
-      MYSQL_DATABASE: movies
-      MYSQL_ROOT_PASSWORD: ahmed
-    volumes:
-      - sqlvolume:/var/lib/mysql
+
 
   phpmyadmin:
       image: phpmyadmin/phpmyadmin

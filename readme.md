@@ -9,6 +9,9 @@ To get this system working you have to have the following prerequisites installe
 [docker compose](https://docs.docker.com/compose/).
 
 clone the project
+
+Copy `.env.example` into `.env`
+You need to Add [movies Api](https://themoviedb.org/) in `.env` file field `MOVIES_API_KEY`
 then run
 `cd path/to/project && docker-compose -d
 `
@@ -25,7 +28,7 @@ after login you see the token created for API you can change to token by clickin
 
 and you can change configuration by button Update Configurations
 
-You need to Add [movies Api](https://themoviedb.org/) in `.env` file field `MOVIES_API_KEY`
+
 
 
 you can also login in API `POST`  `http://localhost:8881/api-login`

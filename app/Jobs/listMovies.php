@@ -33,7 +33,7 @@ class listMovies implements ShouldQueue
      */
     public function handle()
     {
-                    $this->api_get_genres();
+            $this->api_get_genres();
             $this->api_get_recent();
             $this->api_get_top_rated();
     }
